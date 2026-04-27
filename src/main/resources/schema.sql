@@ -1,7 +1,7 @@
 -- ============================
 -- PlayMatch - Script de Base de Datos
 -- ============================
--- Ejecutar este script en MySQL antes de arrancar la aplicación
+
 
 -- Crear la base de datos
 CREATE DATABASE IF NOT EXISTS playmatch_db

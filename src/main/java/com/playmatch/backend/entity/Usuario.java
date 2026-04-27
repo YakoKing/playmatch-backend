@@ -25,6 +25,12 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column
+    private Integer edad;
+
+    @Column(length = 50)
+    private String posicion;
+
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 4, message = "La contraseña debe tener al menos 4 caracteres")
     @Column(nullable = false)
@@ -45,9 +51,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombre, String email, String password) {
+    public Usuario(String nombre, String email,int edad , String posicion ,  String password) {
         this.nombre = nombre;
         this.email = email;
+        this.edad = edad;
+        this.posicion = posicion;
         this.password = password;
     }
 
@@ -69,6 +77,12 @@ public class Usuario {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public Integer getEdad() { return edad; }
+    public void setEdad(Integer edad) { this.edad = edad; }
+
+    public String getPosicion() { return posicion; }
+    public void setPosicion(String posicion) { this.posicion = posicion; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
