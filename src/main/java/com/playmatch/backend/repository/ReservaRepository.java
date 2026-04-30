@@ -19,4 +19,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Reserva> findByPistaIdAndFechaPartido(Long pistaId, LocalDate fecha);
 
     List<Reserva> findByEstado(String estado);
+
+    void deleteByUsuarioId(Long usuarioId);
 }
