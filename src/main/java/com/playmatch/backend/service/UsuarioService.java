@@ -69,7 +69,14 @@ public class UsuarioService {
                     if (datosActualizados.getPassword() != null && !datosActualizados.getPassword().isEmpty()) {
                         usuario.setPassword(datosActualizados.getPassword());
                     }
+                    if (datosActualizados.getPosicion() !=null ){
+                        usuario.setPosicion(datosActualizados.getPosicion());
+                    }
+                    if(datosActualizados.getEdad()>0){
+                        usuario.setEdad(datosActualizados.getEdad());
+                    }
                     return usuarioRepository.save(usuario);
+
                 })
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
