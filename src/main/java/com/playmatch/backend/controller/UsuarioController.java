@@ -55,6 +55,7 @@ public class UsuarioController {
         }
     }
 
+
     // DELETE /api/usuarios/{id} — Eliminar usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id) {

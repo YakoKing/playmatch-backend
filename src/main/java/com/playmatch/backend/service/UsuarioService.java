@@ -1,12 +1,8 @@
 package com.playmatch.backend.service;
 
 import com.playmatch.backend.dto.LoginRequest;
-import com.playmatch.backend.entity.Participacion;
-import com.playmatch.backend.entity.Partido;
 import com.playmatch.backend.entity.Reserva;
 import com.playmatch.backend.entity.Usuario;
-import com.playmatch.backend.repository.ParticipacionRepository;
-import com.playmatch.backend.repository.PartidoRepository;
 import com.playmatch.backend.repository.ReservaRepository;
 import com.playmatch.backend.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -21,12 +17,6 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private ParticipacionRepository participacionRepository;
-
-    @Autowired
-    private PartidoRepository partidoRepository;
 
     @Autowired
     private ReservaRepository reservaRepository;
@@ -87,22 +77,8 @@ public class UsuarioService {
             throw new RuntimeException("Usuario no encontrado con id: " + id);
         }
 
-        //Borrar participaciones directas del usuario
-        List<Participacion> participacionesUsuario = participacionRepository.findByUsuarioId(id);
-        participacionRepository.deleteAll(participacionesUsuario);
-
-        //Borrar partidos y sus participaciones de las reservas del usuario
-        List<Reserva> reservas = reservaRepository.findByUsuarioId(id);
-        for (Reserva reserva : reservas) {
-            List<Partido> partidos = partidoRepository.findByReservaId(reserva.getId());
-            for (Partido partido : partidos) {
-                List<Participacion> participacionesPartido = participacionRepository.findByPartidoId(partido.getId());
-                participacionRepository.deleteAll(participacionesPartido);
-            }
-            partidoRepository.deleteAll(partidos);
-        }
-
         //Borrar reservas del usuario
+        List<Reserva> reservas = reservaRepository.findByUsuarioId(id);
         reservaRepository.deleteAll(reservas);
 
         //Borrar el usuario
