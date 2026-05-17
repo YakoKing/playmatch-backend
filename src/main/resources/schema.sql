@@ -1,6 +1,6 @@
--- ============================
+
 -- PlayMatch - Script de Base de Datos
--- ============================
+
 
 
 -- Crear la base de datos
@@ -11,13 +11,14 @@ CREATE DATABASE IF NOT EXISTS playmatch_db
 USE playmatch_db;
 
 
+
 --  Las tablas se crean automáticamente con spring.jpa.hibernate.ddl-auto=update
 -- Este script es solo para crear la BD y insertar datos de prueba.
--- ============================
 
--- ============================
+
+
 -- DATOS DE PRUEBA
--- ============================
+
 
 -- Usuarios de prueba
 INSERT INTO usuarios (nombre, email, password, telefono, reputacion, fecha_registro) VALUES
@@ -42,6 +43,23 @@ INSERT INTO reservas (usuario_id, pista_id, fecha_partido, hora_inicio, hora_fin
     (1, 1, CURDATE() + INTERVAL 3 DAY, '18:00:00', '19:30:00', 'pagado'),
     (2, 2, CURDATE() + INTERVAL 5 DAY, '20:00:00', '21:30:00', 'pendiente'),
     (1, 3, CURDATE() + INTERVAL 7 DAY, '17:00:00', '18:30:00', 'pendiente')
+ON DUPLICATE KEY UPDATE estado = estado;
+
+-- Partidos de prueba
+INSERT INTO partidos (reserva_id, titulo, jugadores_max, estado, es_publica) VALUES
+    (1, 'Pachanga viernes tarde', 14, 'abierto', true),
+    (2, 'Partido domingo relax', 10, 'abierto', true),
+    (3, 'Entreno semanal', 14, 'abierto', false)
+ON DUPLICATE KEY UPDATE titulo = titulo;
+
+-- Participaciones de prueba
+INSERT INTO participaciones (usuario_id, partido_id, estado) VALUES
+    (1, 1, 'confirmado'),
+    (2, 1, 'confirmado'),
+    (3, 1, 'confirmado'),
+    (4, 2, 'confirmado'),
+    (5, 2, 'confirmado'),
+    (1, 2, 'lista_espera')
 ON DUPLICATE KEY UPDATE estado = estado;
 
 
